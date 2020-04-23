@@ -16,9 +16,12 @@ Usage
 
 .. code-block:: bash
 
-    $ rqgeventworker -h
+    $ rq-gevent-worker --help
 
-    $ export PYTHONPATH=<your project import path>:$PYTHONPATH; rqgeventworker
+    $ export PYTHONPATH=<your project import path>:$PYTHONPATH; rq-gevent-worker
+
+    # or you can source your virtual env
+    $ source venv/bin/activate; rq-gevent-worker
 
 For more information: https://github.com/zhangliyong/rq-gevent-worker
 """
@@ -26,18 +29,18 @@ from setuptools import setup
 
 setup(
     name='rq-gevent-worker',
-    version='0.1.5',
+    version='0.2.0',
     py_modules=['rq_gevent_worker'],
     entry_points={
         'console_scripts': [
-            'rqgeventworker=rq_gevent_worker:main',
+            'rq-gevent-worker=rq_gevent_worker:main',
             ]
         },
     url='https://github.com/zhangliyong/rq-gevent-worker',
     license='BSD',
-    author='Lyon Zhang',
+    author='',
     author_email='lyzhang87@gmail.com',
     description='Implement a new worker based on gevent',
     long_description=__doc__,
-    install_requires=['rq >= 0.4.6', 'gevent >= 1.0'],
+    install_requires=['rq >= 1.2.2', 'gevent >= 20.4.0'],
 )
