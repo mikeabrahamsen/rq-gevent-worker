@@ -25,17 +25,14 @@ Usage
     $ rq-gevent-worker
 ```
 
-##Test
+## Test
 
+```sh
     $ pip install -r requirements.txt
-
     $ py.test tests
+```
 
-##TODO
-
-* Add a command line option to specify gevent pool size
-
-###Crash
+### Cons of using this
 The official `Worker` uses `os.fork()` to spawn a child process to execute a job,
 so if the job cause the process to crash, the worker process is still alive.
 
@@ -49,5 +46,7 @@ Because we need gevent monkey patch to be imported at the start of the process.
 rqworker will import many modules before importing geventworker, 
 so it will may cause geventworker to not work normally.
 
-
-Most of the code is from [lechup](https://gist.github.com/lechup/d886e89490b2f6c737d7) and [jhorman](https://gist.github.com/jhorman/e16ed695845fca683057), 
+This package was originally created by 
+[Lyon Zhang](https://github.com/zhangliyong) based off the following gists:
+[lechup](https://gist.github.com/lechup/d886e89490b2f6c737d7) 
+[jhorman](https://gist.github.com/jhorman/e16ed695845fca683057)
