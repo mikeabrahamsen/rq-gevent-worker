@@ -216,5 +216,5 @@ def main():
               "use the official rqworker instead")
         sys.exit(1)
 
-    sys.argv.extend(['-w', 'gevent_rqworker.GeventWorker'])
+    sys.argv.extend(['-w', 'rq_gevent_worker.GeventWorker'])
     rq_main()

@@ -1,19 +1,29 @@
 rq-gevent-worker
 ================
 
-Implement a new worker based on gevent
+Implement a new rq worker based on gevent
 
-[![Downloads](https://pypip.in/download/rq-gevent-worker/badge.svg)](https://pypi.python.org/pypi/rq-gevent-worker/)
+Install
+-------
 
-##Install
+```bash
+    # create virtualenv
+    $ python3 -m venv venv
 
-    $ pip install rq-gevent-worker
+    # install via pip
+    $ pip install -e git+https://github.com/mikeabrahamsen/rq-gevent-worker@master#egg=rq-gevent-worker
+```
+Usage
+-----
 
-##Usage
+```bash
+    # activate virtualenv
+    $ source venv/bin/activate
 
-    $ rqgeventworker -h
-
-    $ export PYTHONPATH=<your project import path>:$PYTHONPATH; rqgeventworker
+    # check cli options
+    $ rq-gevent-worker --help
+    $ rq-gevent-worker
+```
 
 ##Test
 
@@ -21,26 +31,23 @@ Implement a new worker based on gevent
 
     $ py.test tests
 
-##Under The Hood
-TODO
-
 ##TODO
 
 * Add a command line option to specify gevent pool size
 
-##Note
-
 ###Crash
-Official `Worker` use `os.fork()` to spawn a child process to execute a job,
-so if the job cause the process crash, the worker process is still alive.
+The official `Worker` uses `os.fork()` to spawn a child process to execute a job,
+so if the job cause the process to crash, the worker process is still alive.
 
-When using gevent, we use the same process to execute job, the job may
-cause the whole worker process crash.
+When using gevent essentially we are allowing multiple to be actively run at the
+same time on a single process.  A side effect of this is that if a job 
+causes the process to crash, then all of the other jobs running on 
+that process may also crash.
 
-###Why not `rqworker -w <geventworker>`
-Because we need gevent monkey patch at the start of the process, rqworker import
-many modules before importing geventworker, so it will cause geventworker not work normally.
+###Why not use `rqworker -w <geventworker>`
+Because we need gevent monkey patch to be imported at the start of the process. 
+rqworker will import many modules before importing geventworker, 
+so it will may cause geventworker to not work normally.
 
-##Declaration
 
 Most of the code is from [lechup](https://gist.github.com/lechup/d886e89490b2f6c737d7) and [jhorman](https://gist.github.com/jhorman/e16ed695845fca683057), 
